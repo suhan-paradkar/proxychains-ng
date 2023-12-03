@@ -666,7 +666,11 @@ HOOKFUNC(int, close_range, unsigned first, unsigned last, int flags) {
 	return res;
 }
 
+#ifdef __ANDROID__
+HOOKFUNC(int, connect, int sock, const struct sockaddr *addr, socklen_t len) {
+#elif
 HOOKFUNC(int, connect, int sock, const struct sockaddr *addr, unsigned int len) {
+#endif
 	INIT();
 	PFUNC();
 
